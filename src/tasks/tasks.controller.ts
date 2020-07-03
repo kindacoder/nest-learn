@@ -4,17 +4,18 @@ import { TasksService } from './tasks.service';
 import { timeLog } from 'console';
 import { CreateTaskDto } from './dto/create-task.dto';
 import { Task } from './task.entity'
+import { TaskStatus } from './task-status.enum';
 
 @Controller('tasks')
 export class TasksController {
     constructor(private tasksService: TasksService) { }
 
 
-    // //get all tasks
-    // @Get()
-    // getAllTasks(): Task[] {
-    //     return this.tasksService.getAllTasks()
-    // }
+    //get all tasks
+    @Get()
+    getAllTasks(): Promise<Task[]> {
+        return this.tasksService.getAllTasks()
+    }
 
     //get a task by id
 
@@ -31,11 +32,11 @@ export class TasksController {
         return this.tasksService.createTask(createTaskDto);
     }
 
-    // //update a task
-    // @Patch('/:id/status')
-    // updateTaskStatus(@Param('id') id: string, @Body('status') status: TaskStatus): Task {
-    //     return this.tasksService.updateTaskStatus(id, status);
-    // }
+    //update a task
+    @Patch('/:id/status')
+    updateTaskStatus(@Param('id', ParseIntPipe) id: number, @Body('status') status: TaskStatus): Promise<Task> {
+        return this.tasksService.updateTaskStatus(id, status);
+    }
 
     // //delete a task by id
 

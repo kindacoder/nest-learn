@@ -15,9 +15,11 @@ export class TasksService {
         private taskRepository: TaskRepository) {
     }
 
-    // getAllTasks(): Task[] {
-    //     return this.tasks;
-    // }
+    async getAllTasks(): Promise<Task[]> {
+        const result = await this.taskRepository.find();
+        return result;
+    }
+
 
 
 
@@ -42,13 +44,13 @@ export class TasksService {
 
     // //update a task status
 
-    // updateTaskStatus(id: string, status: TaskStatus): Task {
-    //     //find the tasks
-    //     const task = this.getTaskById(id)
-    //     task.status = status;
-    //     return task;
+    async updateTaskStatus(id: number, status: TaskStatus): Promise<Task> {
 
-    // }
+        const task = await this.getTaskById(id);
+        task.status = status;
+        await task.save();
+        return task;
+    }
 
     //delete a task by id
 
