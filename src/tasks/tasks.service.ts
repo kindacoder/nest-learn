@@ -50,12 +50,18 @@ export class TasksService {
 
     // }
 
-    // //delete a task by id
+    //delete a task by id
 
-    // deleteTask(id: string): void {
-    //     //find the task first
-    //     this.tasks = this.tasks.filter(task => task.id !== id)
-    // }
+    async deleteTask(id: number): Promise<Task> {
+        const result = await this.taskRepository.delete(id);
+        if (result.affected == 0) {
+            throw new NotFoundException(`Task with id "${id}" not found and can't be deleted.. `)
+        }
+        else {
+            return;
+        }
+
+    }
 
 
 
