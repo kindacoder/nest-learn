@@ -16,13 +16,7 @@ export class TasksController {
     //get all tasks
     @Get()
     getTasks(@Query(ValidationPipe) filterDto: GetTasksFilterDto): Promise<Task[]> {
-        if (Object.keys(filterDto).length) {
-            return this.tasksService.getTasksWithFilters(filterDto)
-        }
-        else {
-            return this.tasksService.getAllTasks()
-        }
-
+        return this.tasksService.getTasks(filterDto)
     }
 
     //get a task by id
