@@ -5,6 +5,7 @@ import { timeLog } from 'console';
 import { CreateTaskDto } from './dto/create-task.dto';
 import { Task } from './task.entity'
 import { TaskStatus } from './task-status.enum';
+import { TaskStatusValidationPipe } from './pipes/task-status-validation.pipe';
 
 @Controller('tasks')
 export class TasksController {
@@ -34,7 +35,7 @@ export class TasksController {
 
     //update a task
     @Patch('/:id/status')
-    updateTaskStatus(@Param('id', ParseIntPipe) id: number, @Body('status') status: TaskStatus): Promise<Task> {
+    updateTaskStatus(@Param('id', ParseIntPipe) id: number, @Body('status', TaskStatusValidationPipe) status: TaskStatus): Promise<Task> {
         return this.tasksService.updateTaskStatus(id, status);
     }
 
