@@ -15,7 +15,7 @@ export class TasksController {
 
     //get all tasks
     @Get()
-    getTasks(@Query() filterDto: GetTasksFilterDto): Promise<Task[]> {
+    getTasks(@Query(ValidationPipe) filterDto: GetTasksFilterDto): Promise<Task[]> {
         if (Object.keys(filterDto).length) {
             return this.tasksService.getTasksWithFilters(filterDto)
         }
@@ -37,7 +37,7 @@ export class TasksController {
     @Post()
     @UsePipes(ValidationPipe)
     createTask(@Body() createTaskDto: CreateTaskDto): Promise<Task> {
-        console.log(createTaskDto)
+
         return this.tasksService.createTask(createTaskDto);
     }
 
